@@ -1,0 +1,75 @@
+{
+  "name": "setup-hctl",
+  "version": "1.0.0",
+  "author": "",
+  "private": true,
+  "description": "A GitHub action for installing the Humanitec hctl binary within a workflow.",
+  "homepage": "https://github.com/humanitec/setup-hctl",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/humanitec/setup-hctl.git"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/humanitec/setup-hctl/issues"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "bundle": "npm run format:write && npm run package",
+    "format:write": "prettier --write **/*.ts",
+    "format:check": "prettier --check **/*.ts",
+    "lint": "npx eslint",
+    "package": "ncc build src/index.ts",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "verbose": true,
+    "clearMocks": true,
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    }
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/tool-cache": "^2.0.2",
+    "@octokit/rest": "^22.0.0",
+    "semver": "^7.7.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.2.1",
+    "@types/semver": "^7.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/parser": "^8.34.1",
+    "@vercel/ncc": "^0.38.3",
+    "eslint": "^9.10.0",
+    "eslint-plugin-github": "^6.0.0",
+    "eslint-plugin-jest": "^29.0.1",
+    "eslint-plugin-jsonc": "^2.20.1",
+    "eslint-plugin-prettier": "^5.5.4",
+    "jest": "^30.0.5",
+    "prettier": "^3.6.2",
+    "prettier-eslint": "^16.4.2",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.7.3"
+  }
+}

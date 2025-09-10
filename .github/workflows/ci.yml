@@ -1,0 +1,88 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  test-typescript:
+    name: TypeScript Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Check Format
+        run: npm run format:check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test
+
+  test-action:
+    name: GitHub Actions Test
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    runs-on:
+      - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Test Local Action (specific version)
+        uses: ./
+        with:
+          version: '1.35.3'
+
+      - name: Ensure hctl is installed
+        run: hctl version
+
+      - name: Test Local Action (latest minor)
+        uses: ./
+        with:
+          version: '1.35'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Ensure hctl is installed
+        run: hctl version
+
+      - name: Test Local Action (latest major)
+        uses: ./
+        with:
+          version: '1'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Ensure hctl is installed
+        run: hctl version
+
+      - name: Test Local Action (carot range)
+        uses: ./
+        with:
+          version: '^1'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Ensure hctl is installed
+        run: hctl version

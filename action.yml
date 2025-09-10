@@ -1,0 +1,15 @@
+name: 'Set up hctl platform-orchestrator CLI'
+author: Humanitec
+description: |-
+  Downloads, installs, and configures the hctl CLI.
+  Adds the `hctl` CLI command to the $PATH.
+inputs:
+  version:
+    required: false
+    default: 'latest'
+outputs:
+  version:
+    description: The version installed.
+runs:
+  using: node20
+  main: dist/index.js
