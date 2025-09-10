@@ -40,7 +40,7 @@ async function getDownloadUrl(version: string): Promise<string> {
   const arch = mapArch(os.arch())
   const extension = platform === 'windows' ? 'zip' : 'tar.gz'
 
-  const path = `v${version}/cli_${version}_${platform}_${arch}.${extension}`
+  const path = `v${version}/hctl_${version}_${platform}_${arch}.${extension}`
 
   return `https://github.com/${organization}/${repo}/releases/download/${path}`
 }
