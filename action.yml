@@ -9,7 +9,7 @@ branding:
 inputs:
   version:
     required: false
-    default: 'latest'
+    default: '1'
   token:
     description: 'GitHub token (required if a version range is specified)'
     required: false
