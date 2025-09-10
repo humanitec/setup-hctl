@@ -1,9 +1,10 @@
 import os from 'os'
 import * as core from '@actions/core'
 import * as tc from '@actions/tool-cache'
-import { Octokit } from '@octokit/rest'
+import * as github from '@actions/github'
 import * as semver from 'semver'
 import { isSpecificRange } from './semver'
+import { GitHub } from '@actions/github/lib/utils'
 
 const organization = 'humanitec'
 const repo = 'hctl'
@@ -47,7 +48,7 @@ async function getDownloadUrl(version: string): Promise<string> {
 
 async function findMatchingRelease(
   range: semver.Range,
-  octokit: InstanceType<typeof Octokit>
+  octokit: InstanceType<typeof GitHub>
 ): Promise<string> {
   const perPage = 100
   let page = 0
@@ -93,8 +94,7 @@ async function determineVersion(
     return version
   }
 
-  const octokit = new Octokit({ auth: token })
-
+  const octokit = github.getOctokit(token ?? '')
   return findMatchingRelease(range, octokit)
 }
 
