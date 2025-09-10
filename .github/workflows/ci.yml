@@ -57,7 +57,7 @@ jobs:
           version: '1.35.3'
 
       - name: Ensure hctl is installed
-        run: hctl version
+        run: hctl --version
 
       - name: Test Local Action (latest minor)
         uses: ./
@@ -66,7 +66,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Ensure hctl is installed
-        run: hctl version
+        run: hctl --version
 
       - name: Test Local Action (latest major)
         uses: ./
@@ -75,7 +75,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Ensure hctl is installed
-        run: hctl version
+        run: hctl --version
 
       - name: Test Local Action (carot range)
         uses: ./
@@ -84,4 +84,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Ensure hctl is installed
-        run: hctl version
+        run: hctl --version
