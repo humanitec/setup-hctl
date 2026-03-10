@@ -26,13 +26,13 @@
     "format:check": "prettier --check **/*.ts",
     "lint": "npx eslint",
     "package": "ncc build src/index.ts",
-    "test": "jest"
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest"
   },
   "jest": {
-    "preset": "ts-jest",
     "verbose": true,
     "clearMocks": true,
     "testEnvironment": "node",
+    "extensionsToTreatAsEsm": [".ts"],
     "moduleFileExtensions": [
       "js",
       "ts"
@@ -45,7 +45,7 @@
       "/dist/"
     ],
     "transform": {
-      "^.+\\.ts$": "ts-jest"
+      "^.+\\.ts$": ["ts-jest", { "useESM": true }]
     }
   },
   "dependencies": {
