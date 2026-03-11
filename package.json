@@ -17,7 +17,7 @@
     ".": "./dist/index.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "main": "dist/index.js",
   "scripts": {
@@ -25,14 +25,16 @@
     "format:write": "prettier --write **/*.ts",
     "format:check": "prettier --check **/*.ts",
     "lint": "npx eslint",
-    "package": "ncc build src/index.ts",
+    "package": "esbuild src/index.ts --bundle --platform=node --target=node24 --outfile=dist/index.js",
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest"
   },
   "jest": {
     "verbose": true,
     "clearMocks": true,
     "testEnvironment": "node",
-    "extensionsToTreatAsEsm": [".ts"],
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
     "moduleFileExtensions": [
       "js",
       "ts"
@@ -45,12 +47,17 @@
       "/dist/"
     ],
     "transform": {
-      "^.+\\.ts$": ["ts-jest", { "useESM": true }]
+      "^.+\\.ts$": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
     }
   },
   "dependencies": {
-    "@actions/core": "^2.0.1",
-    "@actions/github": "^6.0.1",
+    "@actions/core": "^3.0.0",
+    "@actions/github": "^9.0.0",
     "@actions/tool-cache": "^4.0.0",
     "semver": "^7.7.4"
   },
@@ -60,7 +67,7 @@
     "@types/semver": "^7.7.0",
     "@typescript-eslint/eslint-plugin": "^8.50.1",
     "@typescript-eslint/parser": "^8.53.0",
-    "@vercel/ncc": "^0.38.4",
+    "esbuild": "^0.27.3",
     "eslint": "^9.39.2",
     "eslint-plugin-github": "^6.0.0",
     "eslint-plugin-jest": "^29.15.0",
